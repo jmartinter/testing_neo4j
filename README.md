@@ -1,6 +1,6 @@
 # Simple scripts for testing on Neo4J graph DB
 
-Scripts:
+## Scripts:
 - ingest_data.py
   - Script to create a fake dataset.
   - If any existing graph on DB, it will be replaced by a new one.
@@ -12,5 +12,8 @@ Scripts:
     - A follower may follow a social channel
 - read_data.py
   - Script to extract some aggregated demographics on one social channel followers
-
+  
 Scripts are coded on Python 3
+  
+## Visual model representation
+![example of graph representation](https://raw.githubusercontent.com/jmartinter/testing_neo4j/master/notes/graph_model.png)
