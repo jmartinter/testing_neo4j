@@ -1,0 +1,40 @@
+# Get the top followers from an entity by relevance
+MATCH (t:Team {id: 't1'})-[:OWNS]->(c:SocialChannel)<-[:FOLLOWS]-(f:Follower)
+RETURN DISTINCT f
+ORDER BY f.relevance DESC
+LIMIT 5
+
+MATCH (t:Team {id: 't1'}) 
+MATCH (f:Follower)-[:FOLLOWS]->(c:SocialChannel) 
+WHERE (t)-[:OWNS]->(c) 
+RETURN DISTINCT f
+ORDER BY f.relevance DESC
+LIMIT 5
+
+MATCH (t:Team {id: 't1'})-[:OWNS]->(c:SocialChannel)
+MATCH (f:Follower)-[:FOLLOWS]->(c)
+RETURN DISTINCT f
+ORDER BY f.relevance DESC
+LIMIT 5
+
+
+# Get demographics for a single channel
+# Group by is implicit (it displays Null values count)
+MATCH (c:SocialChannel {id: 'c11'})<-[:FOLLOWS]-(f:Follower)
+RETURN f.gender, count(*)
+
+# Skip null values
+MATCH (c:SocialChannel {id: 'c11'})<-[:FOLLOWS]-(f:Follower)
+WHERE exists(f.gender)
+RETURN f.gender, count(*)
+
+# We can group by different fields
+MATCH (c:SocialChannel {id: 'c11'})<-[:FOLLOWS]-(f:Follower)
+WHERE exists(f.gender) AND exists(f.age)
+RETURN f.gender, f.age, count(*)
+
+
+# Get total followers per entity
+MATCH (t:Team {id: 't1'})-[:OWNS]->(c:SocialChannel)<-[:FOLLOWS]-(f:Follower)
+RETURN count(DISTINCT f)
+

@@ -1,0 +1,5 @@
+[DEFAULT]
+db_uri = <uri to access your cluster>
+username = <your user name>
+pwd = <your password>
+

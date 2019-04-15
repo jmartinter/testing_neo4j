@@ -1,0 +1,24 @@
+#create new team 
+CREATE (t:Team {name: 'my_team' })
+
+#create new channel 
+CREATE (c:SocialChannel {name: 'my_channel'})
+
+#create new relationship
+MATCH (t:Team {name: 'my_team'})
+MATCH (c:SocialChannel {name: 'my_channel'})
+CREATE (t)-[rel:OWNS]->(c)
+
+#return all graph
+MATCH (t)-[rel]->(c)
+return *
+
+#create a new follower following channel
+MATCH (c:SocialChannel {name: 'my_channel'})
+CREATE (c)<-[:FOLLOWS]-(f:Follower {name: 'Bob'})
+
+# Only one relation may be created at a time
+
+# Nodes with relationships cannot be deleted (unless you use DETACH DELETE)
+MATCH (f:Follower {name: 'Mary'}) 
+DETACH DELETE f
